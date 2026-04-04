@@ -1,0 +1,15 @@
+# File di sistema Mac
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Conda
+.conda/
+
+# IDE
+.vscode/
+.idea/

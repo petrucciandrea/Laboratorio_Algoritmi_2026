@@ -1,0 +1,1 @@
+Petrucci, Andrea, 7050922, Esercizio 1: Statistiche d'ordine dinamiche
