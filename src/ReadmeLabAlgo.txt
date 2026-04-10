@@ -13,8 +13,12 @@ Le strutture analizzate sono:
 * /latex: Contiene la relazione in formato LaTeX
 
 ## 3. Istruzioni per l'Esecuzione
-Per eseguire il benchmark automatizzato e riprodurre i risultati dell'esperimento, posizionarsi nella root del progetto ed eseguire: "python src/main.py"
-Il programma genererà array di numeri casuali di dimensioni crescenti (1000, 2000, 4000, 8000 elementi), eseguirà 100 ricerche casuali per ciascuna dimensione e salverà i tempi di esecuzione nella cartella /data.
+Per avviare il benchmark interattivo e riprodurre i risultati dell'esperimento, posizionarsi nella root del progetto ed eseguire dal terminale: "python src/main.py"
+All'avvio, il programma chiederà all'utente di inserire manualmente due parametri:
+    1. La dimensione iniziale dell'insieme di dati.
+    2. Il numero di ricerche casuali (select) da effettuare per ogni test.
+Sulla base dell'input fornito, lo script genererà array di numeri casuali di dimensioni crescenti applicando il metodo del raddoppio (n, 2n, 4n, 8n).
+Al termine dell'esecuzione automatizzata sulle tre strutture dati, i tempi di esecuzione e l'analisi della complessità asintotica verranno stampati e salvati in un report testuale all'interno della cartella /data.
 
 ## 4. Analisi dei Risultati e Complessità Asintotica
 Dai test empirici condotti, emergono risultati in linea con le aspettative teoriche:

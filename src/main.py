@@ -1,13 +1,10 @@
 import time
+from datetime import datetime
 import random
 import os
 from structures import List, ABR, AVL
 
-def run_benchmark():
-    # Define the input sizes to test
-    sizes = [1000, 2000, 4000, 8000]
-    num_selects = 100  # Number of searches to perform for each test
-    
+def run_benchmark(num_selects, sizes):
     # List to store all text lines to save in the file
     output_lines = []
     
@@ -15,9 +12,10 @@ def run_benchmark():
     def log(message):
         print(message)
         output_lines.append(message)
-    
+
     log("="*75)
     log(f"COMPARISON TEST: DYNAMIC ORDER STATISTICS ({num_selects} searches per N)")
+    log(f"{datetime.now()}")
     log("="*75)
     log(f"{'N Elements':<12} | {'Structure':<12} | {'Insert Time':<20} | {'Select Time':<20}")
     log("-" * 75)
@@ -97,10 +95,12 @@ def run_benchmark():
     # Create the full file path
     file_path = os.path.join(data_dir, "benchmark_results.txt")
     
-    with open(file_path, "w", encoding="utf-8") as f:
-        f.write("\n".join(output_lines))
+    with open(file_path, "a", encoding="utf-8") as f:
+        f.write("\n\n\n" + "\n".join(output_lines))
         
     print(f"\n[INFO] Results successfully saved in:\n{os.path.abspath(file_path)}")
 
 if __name__ == "__main__":
-    run_benchmark()
+    size = int(input("Con quanti elementi vuoi partire? (n,2n,4n,8n)"))
+    num = int(input("Quanti elementi vuoi cercare?"))
+    run_benchmark(num, [size, size*2, size*4, size*8])
