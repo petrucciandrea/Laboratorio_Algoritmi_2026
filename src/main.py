@@ -63,7 +63,7 @@ def run_benchmark():
             my_bst.select(my_bst.root, i)
         t_select_bst = time.perf_counter() - start_time
         
-        log(f"{n:<12} | {'BST':<12} | {t_insert_bst:<17.5f} s | {t_select_bst:<17.5f} s")
+        log(f"{n:<12} | {'ABR':<12} | {t_insert_bst:<17.5f} s | {t_select_bst:<17.5f} s")
         
         # ---------------------------------------------------------
         # TEST 3: AUGMENTED AVL
@@ -82,7 +82,7 @@ def run_benchmark():
             my_avl.select(i)
         t_select_avl = time.perf_counter() - start_time
         
-        log(f"{n:<12} | {'AVL (Aug.)':<12} | {t_insert_avl:<17.5f} s | {t_select_avl:<17.5f} s")
+        log(f"{n:<12} | {'AVL':<12} | {t_insert_avl:<17.5f} s | {t_select_avl:<17.5f} s")
         log("-" * 75)
 
     # 4. Save to text file
