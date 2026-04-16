@@ -61,6 +61,14 @@ class List:
                 return
             x = x.next
 
+    def rank(self, x, k):
+        count = 1
+        while x is not None and x.key <= k:
+            if x.key == k:
+                return count
+            x = x.next
+            count += 1
+        return None
 # ------------------------
 
 
@@ -116,20 +124,22 @@ class ABR:
             self.printPostorder(x.left)
             self.printPostorder(x.right)
 
-    def select(self,x,i):
-        stack = []
+    def select(self, x, i):
         count = 0
-        while stack or x is not None:
-            if x is not None:
-                stack.append(x)
-                x = x.left
-            else:
-                x = stack.pop()
+        y = None
+        def _visita(node):
+            nonlocal count, y
+            if node is None or y is not None:
+                return
+            _visita(node.left)
+            if y is None:
                 count += 1
                 if count == i:
-                    return x
-                x = x.right
-        return None
+                    y = node
+                    return
+                _visita(node.right)
+        _visita(x)
+        return y
     
     def search(self, k):
         x = self.root
@@ -176,6 +186,23 @@ class ABR:
             self.switch(z, y)
             y.left = z.left
             y.left.p = y
+
+    def rank(self, x, k):
+        count = 0
+        rk = None
+        def _visita(node):
+            nonlocal count, rk
+            if node is None or rk is not None:
+                return
+            _visita(node.left)
+            if rk is None:
+                count += 1
+                if node.key == k:
+                    rk = count
+                    return
+                _visita(node.right)
+        _visita(x)
+        return rk
 
 # ------------------------
 
@@ -308,19 +335,36 @@ class AVL(ABR):
     
     def select(self, i):
         """Metodo pubblico per cercare l'i-esimo elemento"""
-        return self._os_select(self.root, i)
+        return self.os_select(self.root, i)
 
-    def _os_select(self, x, i):
+    def os_select(self, x, i):
         """Logica ricorsiva Order-Statistic Select"""
         if x is None:
-            return None            
-        left_size = self.get_size(x.left)
-        r = left_size + 1
+            return None
+        r = self.get_size(x.left) + 1
         if i == r:
             return x
         elif i < r:
-            return self._os_select(x.left, i)
+            return self.os_select(x.left, i)
         else:
-            return self._os_select(x.right, i - r)
+            return self.os_select(x.right, i - r)
+    
+    def rank(self, k):
+        node = self.search(k)
+        if node is not None:
+            return self.os_rank(node)
+        return None
+    
+    def os_rank(self, x):
+        if x is None:
+            return None
+        r = self.get_size(x.left) + 1
+        y = x
+        while y != self.root:
+            if y == y.p.right:
+                r += self.get_size(y.p.left) + 1
+            y = y.p
+        return r
+
 
 #-------------------------
